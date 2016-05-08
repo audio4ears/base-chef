@@ -1,0 +1,22 @@
+---
+driver:
+  name: vagrant
+  customize:
+    natdnshostresolver1: "on"
+  network:
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.9.41
+
+platforms:
+  - name: centos-7.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[base-chef::base]
+    attributes:
+      dev_mode: true
+      ssh:
+        allow_users: [ 'root', 'vagrant' ]
