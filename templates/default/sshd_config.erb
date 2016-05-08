@@ -1,0 +1,32 @@
+# Produced by Chef -- changes will be overwritten
+
+Protocol 2
+KexAlgorithms diffie-hellman-group-exchange-sha256
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+MACs hmac-ripemd160,hmac-sha2-256,hmac-sha2-512
+SyslogFacility AUTHPRIV
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+<% if !node['dev_mode'] %>
+PubkeyAuthentication no
+<% end %>
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials yes
+GSSAPIKeyExchange yes
+UsePAM yes
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+X11Forwarding yes
+Subsystem sftp  /usr/libexec/openssh/sftp-server
+HostKey /etc/ssh/ssh_host_rsa_key
+<% if node['ssh']['allow_users'].any? -%>
+AllowUsers <%= node['ssh']['allow_users'].join(' ') %>
+<% elsif node['ssh']['allow_groups'].any? -%>
+AllowGroups <%= node['ssh']['allow_groups'].join(' ') %>
+<% end -%>
+<% if node['ssh']['pub_key_users'].any? -%>
+Match user <%= node['ssh']['pub_key_users'].join(' ') %>
+PubkeyAuthentication yes
+<% end -%>
