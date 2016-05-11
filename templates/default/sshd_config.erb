@@ -7,9 +7,12 @@ MACs hmac-ripemd160,hmac-sha2-256,hmac-sha2-512
 SyslogFacility AUTHPRIV
 PasswordAuthentication yes
 ChallengeResponseAuthentication no
-<% if !node['dev_mode'] %>
+<% if !node['dev_mode'] -%>
 PubkeyAuthentication no
-<% end %>
+<% end -%>
+<% if !node['ssh']['allow_root'] -%>
+PermitRootLogin no
+<% end -%>
 GSSAPIAuthentication yes
 GSSAPICleanupCredentials yes
 GSSAPIKeyExchange yes
