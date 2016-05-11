@@ -20,6 +20,7 @@ This cookbook contains the following custom recipes:
 - **login_defs**: set ENCRYPT_METHOD to SHA512
 - **nfs**: define specific nfs port
 - **ssh**: unique ssh server key, ssh config hardening
+- **update**: update os via package management
 
 ### Chef
 
@@ -31,7 +32,7 @@ include_recipe base-chef::base
 
 ### Vagrant
 
-Included with this cookbook is a ```Vagrantfile``` configured with both  ```virtualbox``` and ```aws``` providers. Utilizing chef-zero, these providers can install this cookbook onto either a VM or AMI by executing the following:
+Included with this cookbook is a ```Vagrantfile``` configured with both  ```virtualbox``` and ```aws``` providers. Utilizing chef-zero, these providers can install this cookbook onto either a VM or AMI. To utilize AWS funcationality please update the aws variables within the Vagrantfile prior to launching.
 
 **Virtualbox**
 

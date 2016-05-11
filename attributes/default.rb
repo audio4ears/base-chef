@@ -45,7 +45,8 @@ default['ntp']['servers'] = [
 default['selinux']['state'] = 'permissive'
 
 # ssh
-default['ssh']['allow_users'] = [ 'root' ]
+default['ssh']['allow_root'] = false
+default['ssh']['allow_users'] = []
 default['ssh']['allow_groups'] = []
 default['ssh']['pub_key_users'] = []
 
