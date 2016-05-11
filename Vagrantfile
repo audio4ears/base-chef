@@ -11,10 +11,13 @@ $vm_cpu = 2
 # aws override variables
 $aws_box = "dummy"
 $aws_box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
-$aws_ami ='ami-6d1c2007'
-$aws_region = 'us-east-1'
-$aws_instance_type = 't2.small'
-$aws_username = "centos"
+$aws_ami ='my-ami'
+$aws_region = 'my_region'
+$aws_subnet_id = "my_subnet_id"
+$aws_instance_type = 'my_instance_type'
+$aws_security_groups = "my_security_group"
+$aws_username = "my_username"
+$aws_associate_pulic_ip = true
 $aws_private_key_path = ENV['AWS_KEYPATH']
 $aws_keypair_name = ENV['AWS_KEYNAME']
 $aws_access_key_id = ENV['AWS_KEY']
@@ -57,7 +60,9 @@ Vagrant.configure("2") do |config|
       aws.ami = $aws_ami
       aws.region = $aws_region
       aws.instance_type = $aws_instance_type
-      aws.subnet_id = "subnet-855c8cb8"
+      aws.security_groups = $aws_security_groups
+      aws.subnet_id = $aws_subnet_id
+      aws.associate_public_ip = $aws_associate_pulic_ip
       aws.user_data = "#!/bin/bash\nsed -i -e 's/^Defaults.*requiretty/# Defaults requiretty/g' /etc/sudoers"
   end
 
@@ -69,7 +74,7 @@ Vagrant.configure("2") do |config|
       chef.json = {
         'dev_mode' => true,
         'ssh' => {
-          'allow_users' => [ 'root', 'vagrant', 'centos' ]
+          'allow_users' => [ 'vagrant', 'centos' ]
         },
         'authorization' => {
           'sudo' => {
